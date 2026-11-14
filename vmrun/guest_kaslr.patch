@@ -1,0 +1,17 @@
+diff --git a/init/main.c b/init/main.c
+index 07a3116811c5..eb6a3da9d8f0 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -1107,6 +1107,12 @@ void start_kernel(void)
+ 	arch_post_acpi_subsys_init();
+ 	kcsan_init();
+ 
++	pr_info("[*] Writing RAX ...\n");
++	while (1) {
++		unsigned long val = 0xdeadbeefdeadbeefUL;
++		asm volatile("mov %0, %%rax\n\t" : : "r"(val) : "rax");
++	}
++
+ 	/* Do the rest non-__init'ed, we're now alive */
+ 	rest_init();
+ 

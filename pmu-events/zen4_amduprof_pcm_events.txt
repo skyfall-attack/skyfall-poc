@@ -1,0 +1,84 @@
+   EVENT ID      NAME                                                            SHORT DESCRIPTION
+   --------      ---------                                                       -----------------
+    PMCx002     FpRetx87FpOps                                                    Retired x87 FP Ops
+    PMCx003     FpRetSseAvxOps                                                   Retired SSE/AVX FLOPs
+    PMCx005     FpRetiredSerOps                                                  Retired Serializing Ops
+    PMCx008     FpOpsRetiredByWidth                                              Retired FP Ops By Width
+    PMCx00A     FpOpsRetiredByType                                               Retired FP Ops By Type
+    PMCx00B     SseAvxOpsRetired                                                 INT Ops Retired
+    PMCx00C     FpPackOpsRetired                                                 Packed FP Ops Retired
+    PMCx00D     PackedIntOpType                                                  Packed INT Ops Retired
+    PMCx00E     FpDispFaults                                                     FP Dispatch Faults
+    PMCx024     LsBadStatus2                                                     Bad Status 2
+    PMCx025     LsLocks                                                          Retired Lock Instructions
+    PMCx026     LsRetClClush                                                     Retired CLFLUSH Instructions
+    PMCx027     LsRetCpuid                                                       Retired CPUID Instructions
+    PMCx029     LsDispatch                                                       LS Dispatch
+    PMCx02B     LsSmiRx                                                          SMIs Received
+    PMCx02C     LsIntTaken                                                       Interrupts Taken
+    PMCx035     LsSTLF                                                           Store to Load Forward
+    PMCx037     LsStCommitCancel2                                                Store Commit Cancels 2
+    PMCx041     LsMabAlloc                                                       LS MAB Allocates by Type
+    PMCx043     LsDmndFillsFromSys                                               Demand Data Cache Fills by Data Source
+    PMCx044     LsAnyFillsFromSys                                                Any Data Cache Fills by Data Source
+    PMCx045     LsL1DTlbMiss                                                     L1 DTLB Misses
+    PMCx047     LsMisalLoads                                                     Misaligned loads
+    PMCx04B     LsPrefInstrDisp                                                  Prefetch Instructions Dispatched
+    PMCx050     LsWcbCloseFlush                                                  Write Combine Buffer Close Flush
+    PMCx052     LsInefSwPref                                                     Ineffective Software Prefetches
+    PMCx059     LsSwPfDcFills                                                    Software Prefetch Data Cache Fills
+    PMCx05A     LsHwPfDcFills                                                    Hardware Prefetch Data Cache Fills
+    PMCx05F     LsAllocMabCount                                                  Count of Allocated Mabs
+    PMCx076     LsNotHaltedCyc                                                   Cycles not in Halt
+    PMCx078     LsTlbFlush                                                       All TLB Flushes
+    PMCx120     LsNotHaltedP0Cyc                                                 P0 Freq Cycles not in Halt
+    PMCx082     IcCacheFillL2                                                    Instruction Cache Refills from L2
+    PMCx083     IcCacheFillSys                                                   Instruction Cache Refills from System
+    PMCx084     BpL1TlbMissL2TlbHit                                              L1 ITLB Miss, L2 ITLB Hit
+    PMCx085     BpL1TlbMissL2TlbMiss                                             ITLB Reload from Page-Table walk
+    PMCx08B     BpL2BTBCorrect                                                   L2 Branch Prediction Overrides Existing Prediction (speculative)
+    PMCx08E     BpDynIndPred                                                     Dynamic Indirect Predictions
+    PMCx091     BpDeReDirect                                                     Decode Redirects
+    PMCx094     BpL1TlbFetchHit                                                  L1 TLB Hits for Instruction Fetch
+    PMCx096     ResyncsOrNcRedirects                                             Resyncs
+    PMCx188     IcFetchIbs                                                       Fetch IBS events
+    PMCx18E     IcTagHitMiss                                                     IC Tag Hit/Miss Events
+    PMCx28F     OpCacheHitMiss                                                   Op Cache Hit/Miss
+    PMCx0A9     DeOpQueueEmpty                                                   Op Queue Empty
+    PMCx0AA     DeSrcOpDisp                                                      Source of Op Dispatched From Decoder
+    PMCx0AB     DeDisOpsFromDecoder                                              Types of Ops Dispatched From Decoder
+    PMCx0AE     DeDisDispatchTokenStalls1                                        Dispatch Resource Stall Cycles 1
+    PMCx0AF     DeDisDispatchTokenStalls2                                        Dynamic Tokens Dispatch Stall Cycles 2
+    PMCx1A0     DeNoDispatchPerSlot                                              Dispatch Stalls Per Slot
+    PMCx1A2     DeAdditionalResourceStalls                                       Dispatch Additional Resource Stalls
+    PMCx0C0     ExRetInstr                                                       Retired Instructions
+    PMCx0C1     ExRetOps                                                         Retired Ops
+    PMCx0C2     ExRetBrn                                                         Retired Branch Instructions
+    PMCx0C3     ExRetBrnMisp                                                     Retired Branch Instructions Mispredicted
+    PMCx0C4     ExRetBrnTkn                                                      Retired Taken Branch Instructions
+    PMCx0C5     ExRetBrnTknMisp                                                  Retired Taken Branch Instructions Mispredicted
+    PMCx0C6     ExRetBrnFar                                                      Retired Far Control Transfers
+    PMCx0C8     ExRetNearRet                                                     Retired Near Returns
+    PMCx0C9     ExRetNearRetMispred                                              Retired Near Returns Mispredicted
+    PMCx0CA     ExRetBrnIndMisp                                                  Retired Indirect Branch Instructions Mispredicted
+    PMCx0CB     ExRetMmxFpInstr                                                  Retired MMX/FP Instructions
+    PMCx0CC     ExRetIndBrchInstr                                                Retired Indirect Branch Instructions
+    PMCx0D1     ExRetCond                                                        Retired Conditional Branch Instructions
+    PMCx0D3     ExDivBusy                                                        Div Cycles Busy count
+    PMCx0D4     ExDivCount                                                       Div Op Count
+    PMCx0D6     ExNoRetire                                                       Cycles With No Retire
+    PMCx1C1     ExRetUcodeInstr                                                  Retired Microcoded Instructions
+    PMCx1C2     ExRetUcodeOps                                                    Retired Microcode Ops
+    PMCx1C7     ExRetMsprdBrnchInstrDirMsmtch                                    Retired Mispredicted Branch Instructions due to Direction Mismatch
+    PMCx1C8     ExRetUncondBrnchInstrMispred                                     Retired Unconditional Indirect Branch Instructions Mispredicted
+    PMCx1C9     ExRetUncondBrnchInstr                                            Retired Unconditional Branch Instructions
+    PMCx1CF     ExTaggedIbsOps                                                   Tagged IBS Ops
+    PMCx1D0     ExRetFusedInstr                                                  Retired Fused Instructions
+    PMCx060     L2RequestG1                                                      Requests to L2 Group1
+    PMCx061     L2RequestG2                                                      Requests to L2 Group2
+    PMCx063     L2WcbReq                                                         Write Combining Buffer Requests
+    PMCx064     L2CacheReqStat                                                   Core to L2 Cacheable Request Access Status
+    PMCx070     L2PfHitL2                                                        L2 Prefetch Hit in L2
+    PMCx071     L2PfMissL2HitL2                                                  L2 Prefetcher Hits in L3
+    PMCx072     L2PfMissL2L3                                                     L2 Prefetcher Misses in L3
+    PMCx165     L2FillRspSrc                                                     L2 Fill Response Source

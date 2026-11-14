@@ -1,0 +1,20 @@
+diff --git a/arch/x86/crypto/aesni-intel_asm.S b/arch/x86/crypto/aesni-intel_asm.S
+index b37881bb9f15..8a4bfc3d1099 100644
+--- a/arch/x86/crypto/aesni-intel_asm.S
++++ b/arch/x86/crypto/aesni-intel_asm.S
+@@ -154,6 +154,15 @@ SYM_FUNC_START(aesni_set_key)
+ 	jb .Lenc_key128
+ 	je .Lenc_key192
+ 	movups 0x10(UKEYP), %xmm2	# other user key
++
++	/*
++	 * This simulates singlestepping 
++	 */
++	push %rax
++	mov $0x5453414c314b4559, %rax	# "TSAL1KEY" marker
++	vmmcall
++	pop %rax
++
+ 	movaps %xmm2, (TKEYP)
+ 	add $0x10, TKEYP
+ 	aeskeygenassist $0x1, %xmm2, %xmm1	# round 1

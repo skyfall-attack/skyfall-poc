@@ -1,0 +1,65 @@
+EVENT ID      NAME
+   --------      ---------
+    PMCx003      Retired SSE/AVX FLOPs
+    PMCx005      Retired Serializing Ops
+    PMCx00E      FP Dispatch Faults
+    PMCx024      Bad Status 2
+    PMCx025      Retired Lock Instructions
+    PMCx026      Retired CLFLUSH Instructions
+    PMCx027      Retired CPUID Instructions
+    PMCx029      LS Dispatch
+    PMCx02B      SMIs Received
+    PMCx02C      Interrupts Taken
+    PMCx035      Store to Load Forward
+    PMCx037      Store Commit Cancels 2
+    PMCx041      LS MAB Allocates by Type
+    PMCx043      Demand Data Cache Fills by Data Source
+    PMCx044      Any Data Cache Fills by Data Source
+    PMCx045      L1 DTLB Misses
+    PMCx047      Misaligned loads
+    PMCx04B      Prefetch Instructions Dispatched
+    PMCx050      Write Combine Buffer Close Flush
+    PMCx052      Ineffective Software Prefetches
+    PMCx059      Software Prefetch Data Cache Fills
+    PMCx05A      Hardware Prefetch Data Cache Fills
+    PMCx05F      Count of Allocated Mabs
+    PMCx076      Cycles not in Halt
+    PMCx078      All TLB Flushes
+    PMCx082      Instruction Cache Refills from L2
+    PMCx083      Instruction Cache Refills from System
+    PMCx084      L1 ITLB Miss, L2 ITLB Hit
+    PMCx085      ITLB Reload from Page-Table walk
+    PMCx08B      L2 Branch Prediction Overrides Existing Prediction (speculative)
+    PMCx08E      Dynamic Indirect Predictions
+    PMCx091      Decode Redirects
+    PMCx094      L1 TLB Hits for Instruction Fetch
+    PMCx18E      IC Tag Hit/Miss Events
+    PMCx28F      Op Cache Hit/Miss
+    PMCx0A9      Op Queue Empty
+    PMCx0AA      Source of Op Dispatched From Decoder
+    PMCx0AB      Types of Ops Dispatched From Decoder
+    PMCx0AE      Dispatch Resource Stall Cycles 1
+    PMCx0AF      Dynamic Tokens Dispatch Stall Cycles 2
+    PMCx0C0      Retired Instructions
+    PMCx0C1      Retired Ops
+    PMCx0C2      Retired Branch Instructions
+    PMCx0C3      Retired Branch Instructions Mispredicted
+    PMCx0C4      Retired Taken Branch Instructions
+    PMCx0C5      Retired Taken Branch Instructions Mispredicted
+    PMCx0C6      Retired Far Control Transfers
+    PMCx0C8      Retired Near Returns
+    PMCx0C9      Retired Near Returns Mispredicted
+    PMCx0CA      Retired Indirect Branch Instructions Mispredicted
+    PMCx0CB      Retired MMX/FP Instructions
+    PMCx0CC      Retired Indirect Branch Instructions
+    PMCx0D1      Retired Conditional Branch Instructions
+    PMCx0D3      Div Cycles Busy count
+    PMCx0D4      Div Op Count
+    PMCx1C7      Retired Mispredicted Branch Instructions due to Direction Mismat
+    PMCx1CF      Tagged IBS Ops
+    PMCx1D0      Retired Fused Instructions
+    PMCx060      Requests to L2 Group1
+    PMCx064      Core to L2 Cacheable Request Access Status
+    PMCx070      Prefetcher Hits in L2
+    PMCx071      Prefetcher Hits in L3
+    PMCx072      Prefetcher Misses in L3

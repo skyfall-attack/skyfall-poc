@@ -1,0 +1,103 @@
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 4394be40fe78..32d570683f85 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -4163,6 +4163,28 @@ static fastpath_t svm_exit_handlers_fastpath(struct kvm_vcpu *vcpu)
+ 	return EXIT_FASTPATH_NONE;
+ }
+ 
++typedef void (*svm_sev_es_run_hook_t)(struct vcpu_svm *svm,
++                                      bool spec_ctrl_intercepted,
++                                      struct sev_es_save_area *hostsa);
++
++svm_sev_es_run_hook_t svm_sev_es_run_hook;
++EXPORT_SYMBOL_GPL(svm_sev_es_run_hook);
++
++bool call_hook = false;
++EXPORT_SYMBOL_GPL(call_hook);
++
++svm_sev_es_run_hook_t vmrun_sev_es = __svm_sev_es_vcpu_run;
++EXPORT_SYMBOL_GPL(vmrun_sev_es);
++
++struct vcpu_svm *svm_export;
++EXPORT_SYMBOL_GPL(svm_export);
++
++struct sev_es_save_area *sev_es_sa_export;
++EXPORT_SYMBOL_GPL(sev_es_sa_export);
++
++bool spec_ctrl_intercepted_export;
++EXPORT_SYMBOL_GPL(spec_ctrl_intercepted_export);
++
+ static noinstr void svm_vcpu_enter_exit(struct kvm_vcpu *vcpu, bool spec_ctrl_intercepted)
+ {
+ 	struct svm_cpu_data *sd = per_cpu_ptr(&svm_data, vcpu->cpu);
+@@ -4185,13 +4207,28 @@ static noinstr void svm_vcpu_enter_exit(struct kvm_vcpu *vcpu, bool spec_ctrl_in
+ 	amd_clear_divider();
+ 
+ 	if (sev_es_guest(vcpu->kvm))
++	{
++		if(call_hook)
++		{
++			svm_sev_es_run_hook(svm, spec_ctrl_intercepted,
++			                     sev_es_host_save_area(sd));
++		}
+ 		__svm_sev_es_vcpu_run(svm, spec_ctrl_intercepted,
+ 				      sev_es_host_save_area(sd));
++	}
++		
+ 	else
+ 		__svm_vcpu_run(svm, spec_ctrl_intercepted);
+ 
+ 	raw_local_irq_disable();
+ 
++	if(svm->vmcb->control.exit_code == SVM_EXIT_VMGEXIT)
++	{
++		svm_export = svm;
++		spec_ctrl_intercepted_export = spec_ctrl_intercepted;
++		sev_es_sa_export = sev_es_host_save_area(sd);
++	}
++
+ 	guest_state_exit_irqoff();
+ }
+ 
+diff --git a/arch/x86/kvm/svm/vmenter.S b/arch/x86/kvm/svm/vmenter.S
+index 3392bcadfb89..1955388ce38d 100644
+--- a/arch/x86/kvm/svm/vmenter.S
++++ b/arch/x86/kvm/svm/vmenter.S
+@@ -367,9 +367,6 @@ SYM_FUNC_START(__svm_sev_es_vcpu_run)
+ 	mov SVM_current_vmcb(%rdi), %rax
+ 	mov KVM_VMCB_pa(%rax), %rax
+ 
+-	/* Clobbers EFLAGS.ZF */
+-	SVM_CLEAR_CPU_BUFFERS
+-
+ 	/* Enter guest mode */
+ 1:	vmrun %rax
+ 2:
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 72d37c8930ad..cb2545e24596 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10349,6 +10349,11 @@ static int complete_hypercall_exit(struct kvm_vcpu *vcpu)
+ 	return kvm_skip_emulated_instruction(vcpu);
+ }
+ 
++
++typedef void (*svm_sev_es_run_singlestep_t)(void);
++svm_sev_es_run_singlestep_t svm_sev_es_run_singlestep;
++EXPORT_SYMBOL_GPL(svm_sev_es_run_singlestep);
++
+ int ____kvm_emulate_hypercall(struct kvm_vcpu *vcpu, int cpl,
+ 			      int (*complete_hypercall)(struct kvm_vcpu *))
+ {
+@@ -10380,6 +10385,10 @@ int ____kvm_emulate_hypercall(struct kvm_vcpu *vcpu, int cpl,
+ 	ret = -KVM_ENOSYS;
+ 
+ 	switch (nr) {
++	case 0x5453414c314b4559:
++		svm_sev_es_run_singlestep();
++		ret = 0;
++		break;
+ 	case KVM_HC_VAPIC_POLL_IRQ:
+ 		ret = 0;
+ 		break;
